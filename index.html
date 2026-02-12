@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Senin İçin... ❤️</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Senin İçin... ❤️</title>
-
-<meta name="description" content="Beraber biriktirdiğimiz en güzel anılara, o ilk güne ve sonsuzluğa uzanan bir yolculuk. İyi ki varsın...">
-<meta name="author" content="Freeman Enterprises">
-<meta name="theme-color" content="#4a0e16"> <meta property="og:title" content="Her şeyimle geçirdiğim en güzel anlarımmm... 🌹">
-<meta property="og:description" content="Kalbimin en güzel köşesi için hazırlandı. Dokun ve hisset.">
-<meta property="og:image" content="img/9.jpg"> <meta property="og:type" content="website">
+    <meta name="description" content="Beraber biriktirdiğimiz en güzel anılara yolculuk...">
+    <meta name="theme-color" content="#4a0e16">
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&family=Sacramento&display=swap" rel="stylesheet">
     <style>
@@ -57,7 +52,6 @@
             align-items: center;
             z-index: 9999;
             transition: opacity 1s ease, visibility 1s;
-            will-change: opacity;
         }
 
         .neon-heart-wrapper {
@@ -101,8 +95,6 @@
             text-transform: uppercase;
             color: rgba(255,255,255,0.7);
             animation: fadeInOut 2s infinite;
-            text-align: center;
-            padding: 0 20px;
         }
 
         /* --- ANA İÇERİK --- */
@@ -113,7 +105,6 @@
             flex: 1;
         }
 
-        /* YAĞMUR EFEKTİ */
         .rain-container {
             position: fixed;
             top: 0;
@@ -129,15 +120,9 @@
             position: absolute;
             top: -50px;
             color: rgba(255, 0, 60, 0.8);
-            user-select: none;
-            will-change: transform;
-            transform: translateZ(0); 
-            animation-name: fall;
-            animation-timing-function: linear;
-            animation-fill-mode: forwards;
+            animation: fall linear forwards;
         }
 
-        /* HERO BÖLÜMÜ */
         .hero {
             height: 100vh;
             display: flex;
@@ -156,7 +141,6 @@
             color: #fff;
             text-shadow: 0 0 10px rgba(255, 0, 60, 0.8);
             margin-bottom: 20px;
-            transform: translateY(20px);
             opacity: 0;
             animation: slideUp 1.5s forwards 0.5s;
         }
@@ -171,11 +155,11 @@
 
         /* İÇERİK BÖLÜMLERİ */
         .memory-section {
-            min-height: 90vh;
+            min-height: 80vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 80px 20px;
+            padding: 60px 20px;
             position: relative;
             z-index: 2;
         }
@@ -188,49 +172,46 @@
             border-radius: 24px;
             padding: 40px;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1100px;
             display: flex;
-            gap: 40px;
+            gap: 50px;
             box-shadow: var(--box-shadow);
             opacity: 0;
-            transform: translateY(50px) translateZ(0); 
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            will-change: opacity, transform;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+            align-items: center; /* Dikeyde ortala */
         }
 
         .glass-box.visible {
             opacity: 1;
-            transform: translateY(0) translateZ(0);
+            transform: translateY(0);
         }
 
-        .photos-grid {
-            flex: 1.3;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .photo-card {
-            height: 450px;
-            background-color: #222;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.1);
+        /* TEK FOTOĞRAF ALANI */
+        .single-photo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .photo-card img {
+        .single-photo img {
             width: 100%;
-            height: 100%;
+            max-width: 400px; /* Fotoğraf çok devasa olmasın */
+            height: auto;
+            border-radius: 15px;
+            border: 3px solid rgba(255,255,255,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            cursor: zoom-in; /* Tıklanabilir hissi ver */
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
             object-fit: cover;
-            object-position: center;
-            transition: transform 0.6s ease;
-            backface-visibility: hidden;
+            aspect-ratio: 3/4; /* Dikey fotoğraflar için oran */
         }
 
-        .photo-card:hover img {
-            transform: scale(1.05);
+        .single-photo img:hover {
+            transform: scale(1.03) rotate(1deg);
+            box-shadow: 0 15px 40px rgba(255, 0, 60, 0.3);
         }
 
         .text-content {
@@ -261,27 +242,57 @@
             flex-direction: row-reverse;
         }
 
-        /* --- YENİ FİNAL BÖLÜM CSS --- */
-        .final-photo-container {
-            flex: 1; /* Yarısını kaplasın */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* --- MODAL / LIGHTBOX (BÜYÜTME EKRANI) --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 10000; 
+            padding-top: 50px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.92); /* Arkaplan karartma */
+            backdrop-filter: blur(5px);
         }
-        
-        .final-photo-container img {
-            width: 100%;
-            max-width: 400px; /* Telefon ekranı boyutunda kalsın */
-            aspect-ratio: 9 / 16;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 0 0 25px rgba(255, 0, 60, 0.4);
-            border: 3px solid rgba(255,255,255,0.2);
-            transition: transform 0.6s ease;
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: auto;
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 5px;
+            box-shadow: 0 0 50px rgba(255,255,255,0.1);
+            animation: zoomIn 0.4s;
         }
-        
-        .final-photo-container img:hover {
-            transform: scale(1.03);
+
+        /* Kapatma Butonu (X) */
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 10001;
+            line-height: 1;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--neon-red);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Modal Animasyonu */
+        @keyframes zoomIn {
+            from {transform:scale(0.8); opacity: 0;} 
+            to {transform:scale(1); opacity: 1;}
         }
 
         /* --- FOOTER --- */
@@ -309,7 +320,6 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 0.9rem;
             color: rgba(255,255,255,0.5);
-            letter-spacing: 1px;
         }
 
         /* ANİMASYONLAR */
@@ -333,37 +343,20 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- RESPONSIVE AYARLARI --- */
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             .glass-box {
                 flex-direction: column !important;
                 padding: 25px;
-                gap: 25px;
+                gap: 30px;
             }
-            .photos-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
+            .single-photo img {
+                max-width: 100%;
+                max-height: 400px;
             }
-            .photo-card { 
-                height: 250px;
-            }
-            .hero h1 { 
-                font-size: 3.5rem;
-            }
-            .memory-section { 
-                min-height: auto;
-                padding: 60px 15px; 
-            }
-            /* Final bölüm mobilde düzgün görünsün */
-            .final-photo-container img {
-                max-width: 100%; /* Telefondaysa ekrana sığsın */
-                max-height: 60vh;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 3rem; }
-            .photo-card { height: 200px; }
+            .hero h1 { font-size: 3.5rem; }
+            .memory-section { padding: 40px 15px; }
+            .close { top: 10px; right: 20px; font-size: 40px; }
         }
     </style>
 </head>
@@ -380,19 +373,23 @@
         <div class="click-hint">Sürprizi Açmak İçin Kalbe Dokun</div>
     </div>
 
+    <div id="image-modal" class="modal" onclick="closeModal()">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="img-full">
+    </div>
+
     <div id="main-content">
         <div class="rain-container" id="rain-bg"></div>
 
         <section class="hero">
             <h1>Senin İçin...</h1>
-            <p>Beraber biriktirdiğimiz en güzel anılara yolculuk.</p>
+            <p>Beraber biriktirdiğimiz en güzel anılara, o ilk güne ve sonsuzluğa uzanan bir yolculuk.</p>
         </section>
 
         <section class="memory-section">
             <div class="glass-box">
-                <div class="photos-grid">
-                    <div class="photo-card"><img src="img/1.jpg" alt="Foto 1" loading="lazy"></div>
-                    <div class="photo-card"><img src="img/1v.jpg" alt="Foto 1v" loading="lazy"></div>
+                <div class="single-photo">
+                    <img src="img/1.jpg" alt="Miladım" onclick="openModal(this)">
                 </div>
                 <div class="text-content">
                     <h2>Miladım</h2>
@@ -403,9 +400,8 @@
 
         <section class="memory-section">
             <div class="glass-box">
-                <div class="photos-grid">
-                    <div class="photo-card"><img src="img/2.jpg" alt="Foto 2" loading="lazy"></div>
-                    <div class="photo-card"><img src="img/2v.jpg" alt="Foto 2v" loading="lazy"></div>
+                <div class="single-photo">
+                    <img src="img/2.jpg" alt="Kavuşma" onclick="openModal(this)">
                 </div>
                 <div class="text-content">
                     <h2>Kavuşma</h2>
@@ -416,9 +412,8 @@
 
         <section class="memory-section">
             <div class="glass-box">
-                <div class="photos-grid">
-                    <div class="photo-card"><img src="img/3.jpg" alt="Foto 3" loading="lazy"></div>
-                    <div class="photo-card"><img src="img/3v.jpg" alt="Foto 3v" loading="lazy"></div>
+                <div class="single-photo">
+                    <img src="img/3.jpg" alt="Milli Mücadele" onclick="openModal(this)">
                 </div>
                 <div class="text-content">
                     <h2>Milli Mücadele</h2>
@@ -429,9 +424,8 @@
 
         <section class="memory-section">
             <div class="glass-box">
-                <div class="photos-grid">
-                    <div class="photo-card"><img src="img/4.jpg" alt="Foto 4" loading="lazy"></div>
-                    <div class="photo-card"><img src="img/4v.jpg" alt="Foto 4v" loading="lazy"></div>
+                <div class="single-photo">
+                    <img src="img/4.jpg" alt="Gizli Operasyon" onclick="openModal(this)">
                 </div>
                 <div class="text-content">
                     <h2>Gizli Operasyon</h2>
@@ -442,9 +436,8 @@
 
         <section class="memory-section">
             <div class="glass-box">
-                <div class="photos-grid">
-                    <div class="photo-card"><img src="img/5.jpg" alt="Foto 5" loading="lazy"></div>
-                    <div class="photo-card"><img src="img/5v.jpg" alt="Foto 5v" loading="lazy"></div>
+                <div class="single-photo">
+                    <img src="img/5.jpg" alt="Tesadüf" onclick="openModal(this)">
                 </div>
                 <div class="text-content">
                     <h2>Tesadüfün Böylesi</h2>
@@ -455,9 +448,8 @@
 
         <section class="memory-section">
             <div class="glass-box">
-                <div class="photos-grid">
-                    <div class="photo-card"><img src="img/6.jpg" alt="Foto 6" loading="lazy"></div>
-                    <div class="photo-card"><img src="img/6v.jpg" alt="Foto 6v" loading="lazy"></div>
+                <div class="single-photo">
+                    <img src="img/6.jpg" alt="Gülüşün" onclick="openModal(this)">
                 </div>
                 <div class="text-content">
                     <h2>Gülüşün...</h2>
@@ -468,9 +460,8 @@
 
         <section class="memory-section">
             <div class="glass-box">
-                <div class="photos-grid">
-                    <div class="photo-card"><img src="img/7.jpg" alt="Foto 7" loading="lazy"></div>
-                    <div class="photo-card"><img src="img/7v.jpg" alt="Foto 7v" loading="lazy"></div>
+                <div class="single-photo">
+                    <img src="img/7.jpg" alt="Büyük Tanışma" onclick="openModal(this)">
                 </div>
                 <div class="text-content">
                     <h2>Büyük Tanışma</h2>
@@ -481,28 +472,25 @@
 
         <section class="memory-section">
             <div class="glass-box">
-                <div class="photos-grid">
-                    <div class="photo-card"><img src="img/8.jpg" alt="Foto 8" loading="lazy"></div>
-                    <div class="photo-card"><img src="img/8v.jpg" alt="Foto 8v" loading="lazy"></div>
+                <div class="single-photo">
+                    <img src="img/8.jpg" alt="Sabır ve Aşk" onclick="openModal(this)">
                 </div>
                 <div class="text-content">
                     <h2>Sabır ve Aşk</h2>
-                    <p>Bu fotoğrafı çektikten sonra çooook uzun süre buluşamadık. Seni o kadar özlemiştim ki bir hafta daha iyileşmesen pencerenden gelcektim artıkkkk AGSSGSNSJSHSBSJS</p>
+                    <p>Bu fotoğrafı çektikten sonra çooook uzun süre buluşamadık. Seni o kadar özlemiştim ki bir hafta daha iyileşmesen pencerenden gelcektim artıkkkk.</p>
                 </div>
             </div>
         </section>
 
         <section class="memory-section">
             <div class="glass-box">
-                <div class="final-photo-container">
-                    <img src="img/9.jpg" alt="Final Story Fotoğraf" loading="lazy">
+                <div class="single-photo">
+                    <img src="img/9.jpg" alt="Her şeyim" onclick="openModal(this)">
                 </div>
-                
                 <div class="text-content">
                     <h2>Her şeyimm...</h2>
                     <p>
-                        Birlikte geçen 5 ayımız bana sanki şimdiye kadar zaten hep yanımdaymışsın hissi verdi umarım bundan sonra da hep birlikte oluruz her anımız her şeyimiz beraber mutlu huzurlu sağlıklı geçer ömrümüzün sonuna kadar asla birbirimizden ayrılmayız seni çok seviyorum sana çok aşığım sen benim her şeyimsin iyi ki varsın iyi ki benimlesin bebeğimmmm 🥰🥰🥰🥰🥰
-                       
+                        Birlikte geçen 5 ayımız bana sanki şimdiye kadar zaten hep yanımdaymışsın hissi verdi. Umarım bundan sonra da hep birlikte oluruz, her anımız beraber mutlu huzurlu sağlıklı geçer. Ömrümüzün sonuna kadar asla birbirimizden ayrılmayız. Seni çok seviyorum, sana çok aşığım, iyi ki varsın bebeğimmmm 🥰🥰🥰
                     </p>
                 </div>
             </div>
@@ -513,29 +501,32 @@
             <span>❤️ Sonsuza Dek ❤️</span>
             <span>Designed by Freeman Enterprises</span>
         </footer>
-
     </div>
 
     <script>
+        // MÜZİK VE GİRİŞ
         function startJourney() {
             const intro = document.getElementById('intro-screen');
             const main = document.getElementById('main-content');
             const music = document.getElementById('bg-music');
             
+            // Tarayıcı kısıtlamalarını aşmak için ses açma
             music.volume = 0.5;
-            music.play().catch(error => { console.log("Müzik otoplay hatası:", error); });
+            music.play().catch(e => console.log("Otomatik oynatma engellendi, kullanıcı etkileşimi bekleniyor."));
 
             intro.style.opacity = '0';
             
             setTimeout(() => {
                 intro.style.visibility = 'hidden';
                 main.style.display = 'block';
+                // Reflow trigger
                 void main.offsetWidth; 
                 main.style.opacity = '1';
                 setTimeout(startRain, 500);
             }, 1000);
         }
 
+        // YAĞMUR EFEKTİ
         function startRain() {
             const container = document.getElementById('rain-bg');
             const icons = ['❤️', '✨', '🌹']; 
@@ -549,23 +540,15 @@
                 drop.style.animationDuration = duration + 's';
                 const size = Math.random() * 20 + 10;
                 drop.style.fontSize = size + 'px';
-                if (size < 18) {
-                    drop.style.opacity = 0.4;
-                } else {
-                    drop.style.opacity = 0.9;
-                }
+                
+                drop.style.opacity = size < 18 ? 0.4 : 0.9;
+                
                 container.appendChild(drop);
-                setTimeout(() => {
-                    drop.remove();
-                }, duration * 1000);
-            }, 300); 
+                setTimeout(() => { drop.remove(); }, duration * 1000);
+            }, 300);
         }
 
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
+        // SCROLL ANİMASYONU (Görünür olma)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -573,12 +556,38 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.2 });
 
         document.querySelectorAll('.glass-box').forEach((box) => {
             observer.observe(box);
         });
+
+        // --- FOTOĞRAF BÜYÜTME (MODAL) İŞLEMLERİ ---
+        const modal = document.getElementById("image-modal");
+        const modalImg = document.getElementById("img-full");
+
+        function openModal(imgElement) {
+            modal.style.display = "flex"; // Flex ile tam ortalarız
+            // Resim kaynağını al ve modala koy
+            modalImg.src = imgElement.src;
+            // Kaydırmayı engelle (arka plan sabit kalsın)
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            // Kaydırmayı geri aç
+            document.body.style.overflow = "auto";
+        }
+
+        // Modal içeriğine (resme) tıklayınca kapanmasın, sadece siyah alana veya X'e basınca kapansın istersen:
+        // (Şu anki onclick="closeModal()" tüm modala tanımlı, resme tıklayınca da kapanır. 
+        // Eğer resme tıklayınca kapanmasın istersen aşağıdaki kodu açabilirsin.)
+        /*
+        modalImg.onclick = function(e) {
+            e.stopPropagation();
+        }
+        */
     </script>
 </body>
 </html>
-
